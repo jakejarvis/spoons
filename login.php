@@ -5,9 +5,11 @@ session_start();
 
 if($_SESSION['logged_in']) {
   header("Location:" . $site_url . "/");
+  die();
 } else if($_COOKIE['remembered'] == 'TRUE') {
   $_SESSION['logged_in'] = TRUE;
   header("Location:" . $site_url . "/");
+  die();
 }
 
 if(isset($_POST['password'])) {
@@ -18,6 +20,7 @@ if(isset($_POST['password'])) {
       setcookie('remembered', 'TRUE', $threeMonths);
     }
     header("Location:" . $site_url . "/");
+    die();
   } else {
     $failure = TRUE;
   }
