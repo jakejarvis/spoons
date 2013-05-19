@@ -5,7 +5,7 @@
       <div class="footer">
         <div class="row">
             <div class="span4 align-left">
-                <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabble.io/" target="_blank">scribscrab</a>. <a href="https://github.com/jakejarvis/spoons/issues" target="_blank">Report an issue.</a></p>
+                <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabble.io/" target="_blank">scribscrab</a>.&nbsp;&nbsp;&nbsp;<a href="https://github.com/jakejarvis/spoons/issues" target="_blank">Report an issue</a>.</p>
             </div>
             <div class="span4 align-center">
                 <a href="http://www.internaldrive.com/" target="_blank"><img src="<?php echo $site_url ?>/assets/img/id.png" alt="internalDrive"></a>
