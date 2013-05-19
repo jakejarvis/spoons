@@ -5,10 +5,10 @@
       <div class="footer">
         <div class="row">
             <div class="span4 align-left">
-                <p>Made with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabblerocks.com/" target="_blank">scribscrab</a>.</p>
+                <p>Made with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabble.io/" target="_blank">scribscrab</a>. <a href="https://github.com/jakejarvis/spoons/issues" target="_blank">Report an issue.</a></p>
             </div>
             <div class="span4 align-center">
-                <a href="http://www.internaldrive.com/"><img src="<?php echo $site_url ?>/assets/img/id.png" alt="internalDrive"></a>
+                <a href="http://www.internaldrive.com/" target="_blank"><img src="<?php echo $site_url ?>/assets/img/id.png" alt="internalDrive"></a>
             </div>
             <div class="span4 align-right">
                 <p><a href="#">Back to top!</a></p>
