@@ -5,6 +5,7 @@
   
   /* database config */
   $db_host = "loalhost";
+  $db_port = 8889;
   $db_user = "root";
   $db_pass = "lol";
   $db_name = "spoons";
