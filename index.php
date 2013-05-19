@@ -1,6 +1,18 @@
 <?php
+include('init.php');
+
+// needs to be at top so we can redirect to prevent double-shuffling or double-clearing
+if(isset($_GET['shuffle']) && isset($_GET['confirmed'])) {
+  shuffleSpooners();
+  header("Location:" . $site_url . "/shuffle/done");
+} else if(isset($_GET['clear']) && isset($_GET['confirmed'])) {
+  mysql_query("TRUNCATE spooners");
+  header("Location:" . $site_url . "/clear/done");
+}
+
 $page = "Home";
 include('header.php');
+
 ?>
 
 <style>
@@ -48,11 +60,17 @@ include('header.php');
     color: #b94a48;
   }
   div.alert a.btn {
+    color: #333;
+    padding: 4px 20px !important;
+  }
+  div.alert a.btn-success {
     color: #fff;
   }
+  div.alert a.btn i {
+    margin:2px 4px 0px -8px;
+  }
   div.alert p {
-    margin-top: 10px;
-    margin-bottom: 0px;
+    margin: 10px 0px;
   }
 </style>
 
@@ -82,19 +100,15 @@ if(isset($_GET['revive'])) {
 
 
 /*********** SHUFFLING **********/
-if(isset($_GET['shuffle']) && !isset($_GET['confirmed'])) { ?>
+if(isset($_GET['shuffle']) && !isset($_GET['confirmed']) && !isset($_GET['done'])) { ?>
 <div class="alert alert-error">
   <a type="button" class="close" data-dismiss="alert">&times;</a>
   <h4>Are you sure you wanna do that...?</h4>
   <p>Shuffling is permanent, and your head <strong>will</strong> roll if you do this at the wrong time. You might wanna <a href="<?php echo $site_url ?>/print.pdf">save a PDF</a> of the current order first.</p>
-  <a href="<?php echo $site_url ?>/shuffle/confirmed" class="btn btn-success">Yes, I'm positive.</a>
-  <a href="<?php echo $site_url ?>/" class="btn btn-warning" style="margin-left:16px;">No, please forgive me!</a>
+  <a href="<?php echo $site_url ?>/shuffle/confirmed" class="btn btn-success"><i class="icon-ok icon-white"></i> Yes, I'm positive.</a>
+  <a href="<?php echo $site_url ?>/" class="btn" style="margin-left:16px;"><i class="icon-remove"></i> No, please forgive me!</a>
 </div>
-<?php } else if(isset($_GET['shuffle']) && isset($_GET['confirmed'])) {
-  
-  shuffleSpooners();
-  
-?>
+<?php } else if(isset($_GET['shuffle']) && isset($_GET['done'])) { ?>
 <div class="alert">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <h4>Spooners have been successfully shuffled.</h4>
@@ -103,19 +117,15 @@ if(isset($_GET['shuffle']) && !isset($_GET['confirmed'])) { ?>
 
 <?php
 /*********** CLEARING ALL **********/
-if(isset($_GET['clear']) && !isset($_GET['confirmed'])) { ?>
+if(isset($_GET['clear']) && !isset($_GET['confirmed']) && !isset($_GET['done'])) { ?>
 <div class="alert alert-error">
   <a type="button" class="close" data-dismiss="alert">&times;</a>
   <h4>Are you sure you wanna do that...?</h4>
   <p>Clearing the list is permanent, and your head <strong>will</strong> roll if you do this at the wrong time. You might wanna <a href="<?php echo $site_url ?>/print.pdf">save a PDF</a> of the current list first.</p>
-  <a href="<?php echo $site_url ?>/clear/confirmed" class="btn btn-success">Yes, I'm positive.</a>
-  <a href="<?php echo $site_url ?>/" class="btn btn-warning" style="margin-left:16px;">No, please forgive me!</a>
+  <a href="<?php echo $site_url ?>/clear/confirmed" class="btn btn-success"><i class="icon-ok icon-white"></i> Yes, I'm positive.</a>
+  <a href="<?php echo $site_url ?>/" class="btn" style="margin-left:16px;"><i class="icon-remove"></i> No, please forgive me!</a>
 </div>
-<?php } else if(isset($_GET['clear']) && isset($_GET['confirmed'])) {
-  
-  mysql_query("TRUNCATE spooners");
-  
-?>
+<?php } else if(isset($_GET['clear']) && isset($_GET['done'])) { ?>
 <div class="alert">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <h4>All spooners have been successfully deleted.</h4>

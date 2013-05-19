@@ -1,15 +1,4 @@
-<?php
-include_once('config.php');
-
-session_start();
-if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == FALSE) {
-  header("Location:" . $site_url . "/login");
-  die();
-}
-
-include_once('functions.php');
-include_once('db_connect.php');
-?>
+<?php include_once('init.php') // probably already done but just in case... ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

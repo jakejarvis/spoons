@@ -9,8 +9,10 @@ RewriteRule ^sms/?$                     sms.php
 RewriteRule ^print.pdf                  print.php
 RewriteRule ^shuffle/?$                 index.php?shuffle
 RewriteRule ^shuffle/confirmed/?$       index.php?shuffle&confirmed
+RewriteRule ^shuffle/done/?$            index.php?shuffle&done
 RewriteRule ^clear/?$                   index.php?clear
 RewriteRule ^clear/confirmed/?$         index.php?clear&confirmed
+RewriteRule ^clear/done/?$              index.php?clear&done
 RewriteRule ^add/?$                     add.php
 RewriteRule ^spoon/([^/.]+)/?$          index.php?spoon=$1
 RewriteRule ^revive/([^/.]+)/?$         index.php?revive=$1
