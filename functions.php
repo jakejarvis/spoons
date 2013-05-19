@@ -125,7 +125,7 @@ function checkSpoonedByID($id) {
 }
 
 function spoonByID($id) {
-  mysql_query('SET time_zone = "America/New_York"');
+  mysql_query('SET time_zone = "' . $timezone_number . '"');
   mysql_query("UPDATE spooners SET spooned_by = " . getReverseTargetByID($id) . ", time_spooned = NOW(), spooned = 1, order_num = -1 WHERE id = " . $id);
 }
 
