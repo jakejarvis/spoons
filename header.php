@@ -1,10 +1,11 @@
 <?php
+include_once('config.php');
+
 session_start();
 if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == FALSE) {
   header("Location:" . $site_url . "/login");
 }
 
-include_once('config.php');
 include_once('functions.php');
 include_once('db_connect.php');
 ?>

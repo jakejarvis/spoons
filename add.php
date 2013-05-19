@@ -26,6 +26,7 @@ include('header.php');
   td, th {
     line-height: 30px !important;
     font-size: 17px;
+    cursor: default !important;
   }
   
   button.btn, a.btn {
@@ -34,6 +35,10 @@ include('header.php');
   
   form {
     margin: 0px !important;
+  }
+  
+  input[type="text"] {
+    margin-bottom: 0px !important;
   }
 </style>
 
