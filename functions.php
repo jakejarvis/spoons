@@ -10,8 +10,14 @@ function getNumActiveSpooners() {
   return mysql_num_rows($result);
 }
 
+function getLowestOrderNum() {
+  $result = mysql_query("SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num ASC LIMIT 1");
+  $spooner = mysql_fetch_array($result);
+  return $spooner['order_num'];
+}
+
 function getHighestOrderNum() {
-  $result = mysql_query("SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num DESC");
+  $result = mysql_query("SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num DESC LIMIT 1");
   $spooner = mysql_fetch_array($result);
   return $spooner['order_num'];
 }
@@ -88,7 +94,7 @@ function getTargetByID($id) {
   $result = mysql_query("SELECT order_num FROM spooners WHERE id = " . $id);
   $spooner = mysql_fetch_array($result);
   if($spooner['order_num'] == getHighestOrderNum()) {    // if last person in the list
-    $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num = 0");
+    $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num = " . getLowestOrderNum());
     $spooner2 = mysql_fetch_array($result2);
     return $spooner2['id'];
   } else {
@@ -101,7 +107,7 @@ function getTargetByID($id) {
 function getReverseTargetByID($id) {    // aka get the person above the passed in person
   $result = mysql_query("SELECT order_num FROM spooners WHERE id = " . $id);
   $spooner = mysql_fetch_array($result);
-  if($spooner['order_num'] == 0) {    // if first person in the list
+  if($spooner['order_num'] == getLowestOrderNum()) {    // if first person in the list
     $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num = " . getHighestOrderNum());
     $spooner2 = mysql_fetch_array($result2);
     return $spooner2['id'];
