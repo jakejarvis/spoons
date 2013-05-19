@@ -35,7 +35,7 @@ blockquote {
       <strong>You:</strong> Status Annie<br>
       <strong>Me:</strong> There are multiple Annies in the system. Please specify last name or last initial.<br>
       <strong>You:</strong> Status Annie Princeton<br>
-      <strong>Me:</strong> Annie has not been spooned. Annie's target is Snake and is targeted by Pierce Bawls.
+      <strong>Me:</strong> Annie Princeton has not been spooned. Annie's target is Snake and is targeted by Pierce Bawls.
     </blockquote>
   </li>
   
