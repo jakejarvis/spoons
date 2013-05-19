@@ -1,0 +1,8 @@
+# os generated files
+Thumbs.db
+.DS_Store
+
+config-sample.php
+db_structure.sql
+.git
+.gitignore
