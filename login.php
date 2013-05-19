@@ -209,11 +209,11 @@ if(isset($_POST['password'])) {
     <div class="container">
 
       <form class="form-signin" action="<?php echo $site_url ?>/login" method="POST">
-        <?php if($failure) { ?>
+<?php if($failure) { ?>
         <div class="alert alert-error">
           <strong>Nope!</strong> Try again buddy.
         </div>
-        <?php } ?>
+<?php } ?>
         
         <img src="<?php echo $site_url ?>/assets/img/paulblart.png">
 
