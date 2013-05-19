@@ -133,6 +133,10 @@ include_once('db_connect.php');
         font-size: 18px;
         line-height: 24px;
         overflow-x: hidden;
+        /* disable text highlight */
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        cursor:default;
       }
       a, a:hover, strong {
         color: #79ad36;

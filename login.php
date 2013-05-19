@@ -145,6 +145,10 @@ if(isset($_POST['password'])) {
         padding-top: 40px !important;
         padding-bottom: 40px !important;
         background-color: #f5f5f5;
+        /* disable text highlight */
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        cursor:default;
       }
 
       .form-signin {
