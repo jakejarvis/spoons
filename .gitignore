@@ -1,0 +1,5 @@
+# os generated files
+Thumbs.db
+.DS_Store
+
+config.php
