@@ -17,7 +17,7 @@ blockquote {
 <p style="color:#79ad36;font-size:70px;line-height:80px;text-align:center;">+1 (407) 4-SPOONS</p>
 <p style="color:#999999;font-size:50px;line-height:50px;text-align:center;margin-bottom:20px;">+1 (407) 477-6667</p>
 
-<img src="<?php $site_url ?>/assets/img/sms-screenshot.jpg" style="float:right;margin:0px 0px 20px 20px;">
+<img src="<?php $site_url ?>/assets/img/sms-screenshot.jpg" style="float:right;margin:20px 0px 20px 20px;">
 <p style="margin:20px 0px;"><strong>To interact with the spooning management interface via SMS, use the following commands:</strong></p>
 
 <ul>
