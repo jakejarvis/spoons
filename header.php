@@ -132,7 +132,7 @@ include_once('db_connect.php');
         padding-bottom: 40px;
         font-size: 18px;
         line-height: 24px;
-        overflow-y: hidden;
+        overflow-x: hidden;
       }
       a, a:hover, strong {
         color: #79ad36;
