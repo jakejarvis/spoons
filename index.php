@@ -16,6 +16,10 @@ include('header.php');
 ?>
 
 <style>
+  table {
+    width: 100%;
+  }
+
   td, th {
     line-height: 30px !important;
     font-size: 17px;
@@ -34,6 +38,10 @@ include('header.php');
   }
   td.drag {
     cursor: pointer;
+  }
+  
+  td.align-center, th.align-center {
+    text-align: center !important;
   }
   
   div.row div.span2 a {
@@ -140,13 +148,13 @@ if(isset($_GET['clear']) && !isset($_GET['confirmed']) && !isset($_GET['done']))
   <div class="span6" style="font-size:16px;line-height:30px;">
     <form action="<?php echo $site_url ?>/add" method="GET">I want to add <input type="text" name="num" style="width:40px;margin:0px 4px;"> spooners. <button type="submit" class="btn btn-success" style="padding:4px 10px !important;margin:0px 8px;">&nbsp;&nbsp;Leggo!&nbsp;&nbsp;&raquo;&nbsp;&nbsp;</button></form>
   </div>
-  <div class="span2">
+  <div class="span2 visible-desktop">
     <a href="<?php echo $site_url ?>/print.pdf" target="_blank" class="btn btn-primary"><i class="icon-print icon-white"></i> Print</a>
   </div>
-  <div class="span2">
+  <div class="span2 visible-desktop">
     <a href="<?php echo $site_url ?>/shuffle" class="btn btn-warning"><i class="icon-random icon-white"></i> Shuffle</a>
   </div>
-  <div class="span2">
+  <div class="span2 visible-desktop">
     <a href="<?php echo $site_url ?>/clear" class="btn btn-danger"><i class="icon-remove-circle icon-white"></i> Clear All</a>
   </div>
 </div>
@@ -183,23 +191,22 @@ $result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 OR
 <?php if(mysql_num_rows($result) > 0) { ?>
 <table class="table table-active">
   <thead>
-    <tr>
-      <th class="span1"> </th>
-      <th class="span1"> </th>
+    <tr class="row">
+      <th class="span2"> </th>
       <th class="span3"><strong>First name</strong></th>
-      <th class="span3"><strong>Last name</strong></th>
-      <th class="span4"><small>Debug</small></th>
+      <th class="span6"><strong>Last name</strong></th>
+      <th class="span1 align-center"><small>Sort</small></th>
     </tr>
   </thead>
   <tbody>
 <?php
   while($spooner = mysql_fetch_array($result)) {
-    echo '    <tr id="' . $spooner['id'] . '">
-        <td><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger" type="submit"><img src="' . $site_url . '/assets/img/spoon-white-14px.png"> Spoon</a></td>
-        <td class="drag" style="text-align:center;"><i class="icon-list"></i></td>
+    echo '    <tr id="' . $spooner['id'] . '" class="row">
+        <td class="align-center"><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger hidden-phone"><img src="' . $site_url . '/assets/img/spoon-white-14px.png"> Spoon</a><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger visible-phone" style="padding:4px !important; width:40px !important;"><img src="' . $site_url . '/assets/img/spoon-white-14px.png" style="margin:2px 0px !important;"></a></td>
         <td>' . $spooner['first'] . '</td>
         <td>' . $spooner['last'] . '</td>
-        <td><small>Targeting ' . getNameByID(getTargetByID($spooner['id'])) . ', targeted by ' . getNameByID(getReverseTargetByID($spooner['id'])) . '</small></td>
+        <td class="drag align-center"><i class="icon-list"></i></td>
+      <!--  <td><small>Targeting ' . getNameByID(getTargetByID($spooner['id'])) . ', targeted by ' . getNameByID(getReverseTargetByID($spooner['id'])) . '</small></td>  -->
       </tr>
   ';
   }
@@ -221,21 +228,26 @@ $result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spo
 <?php if(mysql_num_rows($result) > 0) { ?>
 <table class="table table-inactive">
   <thead>
-    <tr>
-      <th class="span1"> </th>
-      <th class="span1"> </th>
-      <th class="span3"><strong>Name</strong></th>
-      <th class="span7"><strong>Details</strong></th>
+    <tr class="row">
+      <th class="span2"> </th>
+      <th class="span3 hidden-phone"><strong>Name</strong></th>
+      <th class="span7 hidden-phone"><strong>Details</strong></th>
+      <th class="span3 visible-phone"><strong>First</strong></th>
+      <th class="span6 visible-phone"><strong>Last</strong></th>
+      <th class="span1 visible-phone"> </th>
     </tr>
   </thead>
   <tbody>
 <?php
   while($spooner = mysql_fetch_array($result)) {
-    echo '    <tr>
-        <td><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn" type="submit"><i class="icon-arrow-up"></i> Revive</a></td>
-        <td> </td>
-        <td>' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
-        <td><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
+    echo '    <tr class="row">
+        <td class="hidden-phone align-center"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn hidden-phone" type="submit"><i class="icon-arrow-up"></i> Revive</a></td>
+        <td class="hidden-phone">' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
+        <td class="hidden-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
+        <td class="visible-phone align-center"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn visible-phone" type="submit"><i class="icon-arrow-up"></i></a></td>
+        <td class="visible-phone">' . $spooner['first'] . '</td>
+        <td class="visible-phone">' . $spooner['last'] . '</td>
+        <td class="visible-phone"> </td>
       </tr>
   ';
   }
