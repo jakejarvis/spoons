@@ -43,7 +43,8 @@ include('header.php');
     text-align: center;
     font-weight: normal;
   }
-  div.row div.span2 a i {
+  div.row div.span2 a i, td a img, td a i {
+    vertical-align: text-top;
     margin:2px 4px 0px -8px;
   }
   
@@ -194,7 +195,7 @@ $result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 OR
 <?php
   while($spooner = mysql_fetch_array($result)) {
     echo '    <tr id="' . $spooner['id'] . '">
-        <td><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger" type="submit">Spoon</a></td>
+        <td><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger" type="submit"><img src="' . $site_url . '/assets/img/spoon-white-14px.png"> Spoon</a></td>
         <td class="drag" style="text-align:center;"><i class="icon-list"></i></td>
         <td>' . $spooner['first'] . '</td>
         <td>' . $spooner['last'] . '</td>
@@ -231,7 +232,7 @@ $result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spo
 <?php
   while($spooner = mysql_fetch_array($result)) {
     echo '    <tr>
-        <td><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn" type="submit">Revive</a></td>
+        <td><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn" type="submit"><i class="icon-arrow-up"></i> Revive</a></td>
         <td> </td>
         <td>' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
         <td><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
