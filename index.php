@@ -213,7 +213,7 @@ $result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 OR
 <hr>
 
 <?php
-$result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spooners WHERE spooned = 1 ORDER BY first") or die(mysql_error());
+$result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spooners WHERE spooned = 1 ORDER BY time_spooned DESC") or die(mysql_error());
 ?>
 
 <h4>Dead Spooners (<?php echo mysql_num_rows($result) ?>)</h4>
