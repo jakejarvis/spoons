@@ -14,10 +14,12 @@ blockquote {
 
 <h3>How to use the SMS system</h3>
 
-<p style="color:#79ad36;font-size:70px;line-height:80px;text-align:center;">+1 (407) 4-SPOONS</p>
-<p style="color:#999999;font-size:50px;line-height:50px;text-align:center;margin-bottom:20px;">+1 (407) 477-6667</p>
+<p class="hidden-phone" style="color:#79ad36;font-size:70px;line-height:80px;text-align:center;">+1 (407) 4-SPOONS</p>
+<p class="hidden-phone" style="color:#999999;font-size:50px;line-height:50px;text-align:center;margin-bottom:20px;">+1 (407) 477-6667</p>
 
-<img src="<?php $site_url ?>/assets/img/sms-screenshot.jpg" style="float:right;margin:20px 0px 20px 20px;">
+<p class="visible-phone" style="color:#79ad36;font-size:35px;line-height:45px;text-align:center;margin-bottom:10px;font-weight:bold;">+1 (407) 477-6667</p>
+
+<img src="<?php $site_url ?>/assets/img/sms-screenshot.jpg" class="hidden-phone" style="float:right;margin:20px 0px 20px 20px;">
 <p style="margin:20px 0px;"><strong>To interact with the spooning management interface via SMS, use the following commands:</strong></p>
 
 <ul>
