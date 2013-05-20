@@ -84,6 +84,12 @@ include('header.php');
   div.alert p {
     margin: 10px 0px;
   }
+@media (max-width: 767px) {
+  td,tr .visible-phone {
+    display: table-cell !important;
+    line-height: 20px !important;
+  }
+}
 </style>
 
 <?php
@@ -230,24 +236,20 @@ $result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spo
   <thead>
     <tr class="row">
       <th class="span2"> </th>
-      <th class="span3 hidden-phone"><strong>Name</strong></th>
-      <th class="span7 hidden-phone"><strong>Details</strong></th>
-      <th class="span3 visible-phone"><strong>First</strong></th>
-      <th class="span6 visible-phone"><strong>Last</strong></th>
+      <th class="span3"><strong>Name</strong></th>
+      <th class="span7"><strong>Details</strong></th>
       <th class="span1 visible-phone"> </th>
     </tr>
   </thead>
   <tbody>
 <?php
   while($spooner = mysql_fetch_array($result)) {
-    echo '    <tr class="row">
-        <td class="hidden-phone align-center"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn hidden-phone" type="submit"><i class="icon-arrow-up"></i> Revive</a></td>
-        <td class="hidden-phone">' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
+    echo '        <tr id="' . $spooner['id'] . '" class="row">
+        <td class="align-center" style="min-width:40px;"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn hidden-phone" type="submit"><i class="icon-arrow-up"></i> Revive</a><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn visible-phone" style="padding-left:10px !important; width:40px !important;">  <i class="icon-arrow-up"></i></a></td>
+        <td>' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
         <td class="hidden-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
-        <td class="visible-phone align-center"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn visible-phone" type="submit"><i class="icon-arrow-up"></i></a></td>
-        <td class="visible-phone">' . $spooner['first'] . '</td>
-        <td class="visible-phone">' . $spooner['last'] . '</td>
-        <td class="visible-phone"> </td>
+        <td class="visible-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong></br> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
+
       </tr>
   ';
   }
