@@ -170,7 +170,8 @@
     <!-- Le JQuery -->
     <script src="<?php echo $site_url ?>/assets/js/jquery.min.js"></script>
     <script src="<?php echo $site_url ?>/assets/js/jquery-ui.min.js"></script>
-    
+    <script src="<?php echo $site_url ?>/assets/js/jquery.ui.touch-punch.min.js"></script>
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="<?php echo $site_url ?>/assets/js/html5shiv.js"></script>
