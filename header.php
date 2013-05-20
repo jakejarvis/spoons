@@ -118,7 +118,7 @@
     <link href="<?php echo $site_url ?>/assets/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding: 20px 0px;
+        padding: 20px 0px !important;
         font-size: 18px;
         line-height: 24px;
         overflow-x: hidden;
@@ -196,7 +196,7 @@
       <div class="masthead visible-phone">
         <ul class="nav nav-pills pull-right">
           <?php if($page == "Home") { ?><li><a href="<?php echo $site_url ?>/sms">SMS</a></li><?php } ?>
-          <?php if($page != "Home") { ?><li><a href="<?php echo $site_url ?>/">&laquo; Back Home</a></li><?php } ?>
+          <?php if($page != "Home") { ?><li><a href="<?php echo $site_url ?>/">Home</a></li><?php } ?>
           <li><a href="<?php echo $site_url ?>/logout">Logout</a></li>
         </ul>
         <h2><a href="<?php echo $site_url ?>/">Spoons</a></h2>
