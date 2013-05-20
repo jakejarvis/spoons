@@ -118,8 +118,7 @@
     <link href="<?php echo $site_url ?>/assets/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding-top: 20px;
-        padding-bottom: 40px;
+        padding: 20px 40px 40px 40px;
         font-size: 18px;
         line-height: 24px;
         overflow-x: hidden;
