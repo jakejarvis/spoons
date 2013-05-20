@@ -109,16 +109,16 @@
     -->
     
     <meta charset="utf-8">
+    
     <title><?php echo $page ?> &mdash; Spoons</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <!-- Le styles -->
     <link href="<?php echo $site_url ?>/assets/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
-        padding: 20px 40px 40px 40px;
+        padding: 20px 0px;
         font-size: 18px;
         line-height: 24px;
         overflow-x: hidden;
@@ -160,6 +160,7 @@
         margin-bottom: -1px;
       }
     </style>
+    <link href="<?php echo $site_url ?>/assets/css/bootstrap-responsive.css" rel="stylesheet">
     
     <!-- Pretty font -->
     <script type="text/javascript" src="http://use.typekit.com/zhe6udw.js"></script>
@@ -183,13 +184,22 @@
 
     <div class="container">
 
-      <div class="masthead">
+      <div class="masthead hidden-phone">
         <ul class="nav nav-pills pull-right">
           <?php if($page == "Home") { ?><li><a href="<?php echo $site_url ?>/sms">How do I report via SMS?</a></li><?php } ?>
           <?php if($page != "Home") { ?><li><a href="<?php echo $site_url ?>/">&laquo; Back Home</a></li><?php } ?>
           <li style="margin-left:10px;"><a href="<?php echo $site_url ?>/logout">Logout</a></li>
         </ul>
         <h2><a href="<?php echo $site_url ?>/">Spoons Web Reporting</a></h2>
+      </div>
+      
+      <div class="masthead visible-phone">
+        <ul class="nav nav-pills pull-right">
+          <?php if($page == "Home") { ?><li><a href="<?php echo $site_url ?>/sms">SMS</a></li><?php } ?>
+          <?php if($page != "Home") { ?><li><a href="<?php echo $site_url ?>/">&laquo; Back Home</a></li><?php } ?>
+          <li><a href="<?php echo $site_url ?>/logout">Logout</a></li>
+        </ul>
+        <h2><a href="<?php echo $site_url ?>/">Spoons</a></h2>
       </div>
 
       <hr>
