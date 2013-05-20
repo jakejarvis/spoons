@@ -154,7 +154,6 @@
         line-height: 40px;
       }
       td {
-        cursor: pointer;
         background-color: #fff;
         border-top: 1px solid #ddd;
         border-bottom: 1px solid #ddd;

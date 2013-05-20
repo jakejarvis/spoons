@@ -32,6 +32,9 @@ include('header.php');
     font-weight: normal;
     width: 110px;
   }
+  td.drag {
+    cursor: pointer;
+  }
   
   div.row div.span2 a {
     padding: 4px 25px !important;
@@ -161,6 +164,7 @@ $(document).ready(function() {
 
   $(".table-active tbody").sortable({
   	helper: fixHelper,
+  	handle: ".drag",
   	update: function(event, ui) {
                 var newOrder = $(this).sortable('toArray').toString();
                 $.post('sort_save.php', {order:newOrder});
@@ -191,7 +195,7 @@ $result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 OR
   while($spooner = mysql_fetch_array($result)) {
     echo '    <tr id="' . $spooner['id'] . '">
         <td><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger" type="submit">Spoon</a></td>
-        <td style="text-align:center;"><i class="icon-list"></i></td>
+        <td class="drag" style="text-align:center;"><i class="icon-list"></i></td>
         <td>' . $spooner['first'] . '</td>
         <td>' . $spooner['last'] . '</td>
         <td><small>Targeting ' . getNameByID(getTargetByID($spooner['id'])) . ', targeted by ' . getNameByID(getReverseTargetByID($spooner['id'])) . '</small></td>
