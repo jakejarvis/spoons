@@ -208,7 +208,7 @@ $result = mysql_query("SELECT id, first, last, staff FROM spooners WHERE spooned
 <?php
   while($spooner = mysql_fetch_array($result)) {
     echo '    <tr id="' . $spooner['id'] . '" class="row';
-    if($spooner['staff']) echo ' warning';
+    if($spooner['staff']) echo ' success'; // highlight staff with green row
     echo '">
         <td class="align-center"><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger hidden-phone"><img src="' . $site_url . '/assets/img/spoon-white-14px.png"> Spoon</a><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger visible-phone" style="padding:4px !important; width:40px !important;"><img src="' . $site_url . '/assets/img/spoon-white-14px.png" style="margin:2px 0px !important;"></a></td>
         <td>' . $spooner['first'] . '</td>
@@ -247,7 +247,7 @@ $result = mysql_query("SELECT id, first, last, staff, spooned_by, time_spooned F
 <?php
   while($spooner = mysql_fetch_array($result)) {
     echo '        <tr id="' . $spooner['id'] . '" class="row';
-    if($spooner['staff']) echo ' warning';
+    if($spooner['staff']) echo ' success'; // highlight staff with green row
     echo '">
         <td class="align-center" style="min-width:40px;"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn hidden-phone" type="submit"><i class="icon-arrow-up"></i> Revive</a><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn visible-phone" style="padding-left:10px !important; width:40px !important;">  <i class="icon-arrow-up"></i></a></td>
         <td>' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
