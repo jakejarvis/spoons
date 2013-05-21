@@ -137,7 +137,7 @@ if(isset($_POST['password'])) {
     
     <meta charset="utf-8">
     
-    <title>Sign in &mdash; Spoons</title>
+    <title>Sign in &middot; Spoons</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

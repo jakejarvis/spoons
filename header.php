@@ -110,7 +110,7 @@
     
     <meta charset="utf-8">
     
-    <title><?php echo $page ?> &mdash; Spoons</title>
+    <title><?php echo $page ?> &middot; Spoons</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
