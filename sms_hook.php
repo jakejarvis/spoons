@@ -23,14 +23,14 @@ if(strlen($text) > strlen($command)) {
 
 $help = 'List of commands:' . "\n" . '"Spoon (name)" to spoon.' . "\n" . '"Status (name)" to check.' . "\n" . '"Remaining" for number of alive spooners.';
 
-if($subject_id == "multiple") {
+if($subject && $subject_id == "multiple") {
   $response = "There are multiple " . $subject . "s in the system. Please specify last name or last initial.";
-} else if($subject_id == "none") {
+} else if($subject && $subject_id == "none") {
   $response = "There were no spooners by the name " . $subject . " found in the system. Sorry (but not really).";
-} else if(strcasecmp($command, "spoon") == 0) {
+} else if($subject && strcasecmp($command, "spoon") == 0) {
   spoonByID($subject_id);
   $response = getNameByID($subject_id) . ' has been spooned! ' . getNameByID(getSpoonedByIDByID($subject_id)) . '\'s new target is ' . getNameByID(getTargetByID(getSpoonedByIDByID($subject_id))) . '.';
-} else if(strcasecmp($command, "status") == 0) {
+} else if($subject && strcasecmp($command, "status") == 0) {
   if(checkSpoonedByID($subject_id)) {
     $response = getNameByID($subject_id) . ' was spooned by ' . getNameByID(getSpoonedByIDByID($subject_id)) . ' on ' . date('l', strtotime(getTimeSpoonedByID($subject_id))) . ' at ' . date('g:i A', strtotime(getTimeSpoonedByID($subject_id))) . '.';
   } else {
