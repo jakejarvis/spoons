@@ -112,7 +112,7 @@
     
     <title><?php echo $page ?> &middot; Spoons</title>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable mobile pinch zoom -->
 
     <!-- Le styles -->
     <link href="<?php echo $site_url ?>/assets/css/bootstrap.css" rel="stylesheet">
