@@ -8,6 +8,7 @@ header("content-type: text/xml");
 $text = $_REQUEST['Body'];
 //$text = "Spoon caJun.";
 
+$text = str_replace("?", "", $text);    // ignore question marks
 $text = trim($text);
 
 if(strpos($text, " ") !== false)
@@ -20,7 +21,7 @@ if(strlen($text) > strlen($command)) {
   $subject_id = getIDByLooseName($subject);
 }
 
-$help = 'List of commands: "Spoon (name)" to spoon, "Status (name)" to check, "Remaining" to query number of alive spooners.';
+$help = 'List of commands:' . "\n" . '"Spoon (name)" to spoon.' . "\n" . '"Status (name)" to check.' . "\n" . '"Remaining" for number of alive spooners.';
 
 if($subject_id == "multiple") {
   $response = "There are multiple " . $subject . "s in the system. Please specify last name or last initial.";
@@ -37,7 +38,7 @@ if($subject_id == "multiple") {
   }
 } else if(strcasecmp($command, "remaining") == 0) {
   $response = "There are " . getNumActiveSpooners() . " of " . getNumTotalSpooners() . " spooners remaining.";
-} else if(strcasecmp($command, "help") == 0) {
+} else if(strcasecmp($command, "commands") == 0 || strcasecmp($command, "command") == 0) {
   $response = $help;
 } else {
   $response = "Invalid command. " . $help;
