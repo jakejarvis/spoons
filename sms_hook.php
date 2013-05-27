@@ -44,6 +44,8 @@ if($subject_id == "multiple") {
   $response = "Invalid command. " . $help;
 }
 
+logSMS($_REQUEST['Body'], $response, $_REQUEST['From']);
+
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <Response>
