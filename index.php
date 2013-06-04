@@ -89,6 +89,13 @@ include('header.php');
     display: table-cell !important;
     line-height: 20px !important;
   }
+  div.row{
+    margin-left: 10px;
+  }
+}
+
+h2, h4{
+  margin-left: 10px;
 }
 </style>
 
@@ -180,6 +187,8 @@ $(document).ready(function() {
   $(".table-active tbody").sortable({
   	helper: fixHelper,
   	handle: ".drag",
+      containment: 'parent',
+      axis: 'y',
   	update: function(event, ui) {
                 var newOrder = $(this).sortable('toArray').toString();
                 $.post('sort_save.php', {order:newOrder});
