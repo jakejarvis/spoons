@@ -198,7 +198,7 @@ $(document).ready(function() {
 </script>
 
 <?php
-$result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 ORDER BY order_num") or die(mysql_error());
+$result = mysql_query("SELECT id, first, last, staff FROM spooners WHERE spooned = 0 ORDER BY order_num") or die(mysql_error());
 ?>
 
 <h4>Active Spooners (<?php echo mysql_num_rows($result) ?>)</h4>
@@ -216,7 +216,9 @@ $result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 OR
   <tbody>
 <?php
   while($spooner = mysql_fetch_array($result)) {
-    echo '    <tr id="' . $spooner['id'] . '" class="row">
+    echo '    <tr id="' . $spooner['id'] . '" class="row';
+    if($spooner['staff']) echo ' success'; // highlight staff with green row
+    echo '">
         <td class="align-center"><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger hidden-phone"><img src="' . $site_url . '/assets/img/spoon-white-14px.png"> Spoon</a><a href="' . $site_url . '/spoon/' . $spooner['id'] . '" class="btn btn-danger visible-phone" style="padding:4px !important; width:40px !important;"><img src="' . $site_url . '/assets/img/spoon-white-14px.png" style="margin:2px 0px !important;"></a></td>
         <td>' . $spooner['first'] . '</td>
         <td>' . $spooner['last'] . '</td>
@@ -235,7 +237,7 @@ $result = mysql_query("SELECT id, first, last FROM spooners WHERE spooned = 0 OR
 <hr>
 
 <?php
-$result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spooners WHERE spooned = 1 ORDER BY time_spooned DESC") or die(mysql_error());
+$result = mysql_query("SELECT id, first, last, staff, spooned_by, time_spooned FROM spooners WHERE spooned = 1 ORDER BY time_spooned DESC") or die(mysql_error());
 ?>
 
 <h4>Dead Spooners (<?php echo mysql_num_rows($result) ?>)</h4>
@@ -253,7 +255,9 @@ $result = mysql_query("SELECT id, first, last, spooned_by, time_spooned FROM spo
   <tbody>
 <?php
   while($spooner = mysql_fetch_array($result)) {
-    echo '        <tr id="' . $spooner['id'] . '" class="row">
+    echo '        <tr id="' . $spooner['id'] . '" class="row';
+    if($spooner['staff']) echo ' success'; // highlight staff with green row
+    echo '">
         <td class="align-center" style="min-width:40px;"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn hidden-phone" type="submit"><i class="icon-arrow-up"></i> Revive</a><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn visible-phone" style="padding-left:10px !important; width:40px !important;">  <i class="icon-arrow-up"></i></a></td>
         <td>' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
         <td class="hidden-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>

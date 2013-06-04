@@ -1,5 +1,9 @@
 <?php
 
+function logSMS($message, $response, $number) {
+  mysql_query('INSERT INTO texts (message, response, phone_number) VALUES ("' . mysql_real_escape_string($message) . '", "' . mysql_real_escape_string($response) . '", "' . mysql_real_escape_string($number) . '")');
+}
+
 function getNumTotalSpooners() {
   $result = mysql_query("SELECT id FROM spooners");
   return mysql_num_rows($result);

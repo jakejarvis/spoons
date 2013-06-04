@@ -50,7 +50,7 @@ blockquote {
   </li>
   
   <li>
-    <strong>Help:</strong> To get a list of commands on-the-go, just send <strong>Help</strong> (or any command not listed here).
+    <strong>Help:</strong> To get a list of commands on-the-go, just send <strong>Commands</strong> (or any command not listed here).
   </li>
 </ul>
 

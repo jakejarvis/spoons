@@ -8,6 +8,7 @@ header("content-type: text/xml");
 $text = $_REQUEST['Body'];
 //$text = "Spoon caJun.";
 
+$text = str_replace("?", "", $text);    // ignore question marks
 $text = trim($text);
 
 if(strpos($text, " ") !== false)
@@ -20,16 +21,16 @@ if(strlen($text) > strlen($command)) {
   $subject_id = getIDByLooseName($subject);
 }
 
-$help = 'List of commands: "Spoon (name)" to spoon, "Status (name)" to check, "Remaining" to query number of alive spooners.';
+$help = 'List of commands:' . "\n" . '"Spoon (name)" to spoon.' . "\n" . '"Status (name)" to check.' . "\n" . '"Remaining" for number of alive spooners.';
 
-if($subject_id == "multiple") {
+if($subject && $subject_id == "multiple") {
   $response = "There are multiple " . $subject . "s in the system. Please specify last name or last initial.";
-} else if($subject_id == "none") {
+} else if($subject && $subject_id == "none") {
   $response = "There were no spooners by the name " . $subject . " found in the system. Sorry (but not really).";
-} else if(strcasecmp($command, "spoon") == 0) {
+} else if($subject && strcasecmp($command, "spoon") == 0) {
   spoonByID($subject_id);
   $response = getNameByID($subject_id) . ' has been spooned! ' . getNameByID(getSpoonedByIDByID($subject_id)) . '\'s new target is ' . getNameByID(getTargetByID(getSpoonedByIDByID($subject_id))) . '.';
-} else if(strcasecmp($command, "status") == 0) {
+} else if($subject && strcasecmp($command, "status") == 0) {
   if(checkSpoonedByID($subject_id)) {
     $response = getNameByID($subject_id) . ' was spooned by ' . getNameByID(getSpoonedByIDByID($subject_id)) . ' on ' . date('l', strtotime(getTimeSpoonedByID($subject_id))) . ' at ' . date('g:i A', strtotime(getTimeSpoonedByID($subject_id))) . '.';
   } else {
@@ -37,11 +38,13 @@ if($subject_id == "multiple") {
   }
 } else if(strcasecmp($command, "remaining") == 0) {
   $response = "There are " . getNumActiveSpooners() . " of " . getNumTotalSpooners() . " spooners remaining.";
-} else if(strcasecmp($command, "help") == 0) {
+} else if(strcasecmp($command, "commands") == 0 || strcasecmp($command, "command") == 0) {
   $response = $help;
 } else {
   $response = "Invalid command. " . $help;
 }
+
+logSMS($_REQUEST['Body'], $response, $_REQUEST['From']);
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
