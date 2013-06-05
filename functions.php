@@ -61,7 +61,6 @@ function shuffleSpooners() {
 
 
   while(count($random_ids) < getNumActiveSpooners()){
-    echo "oh no";
     for($i = 0; $i < $spacing-1; $i++){
       array_push($random_ids, array_pop($camper_ids));
     }
