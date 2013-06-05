@@ -26,18 +26,64 @@ function getHighestOrderNum() {
   return $spooner['order_num'];
 }
 
-function shuffleSpooners() {
-  $random_array = range(0, getNumActiveSpooners() - 1);   // create array containing numbers 0 to # of spooners remaining - 1, inclusive
-  
-  shuffle($random_array);     // shuffle said array
-  
-  // update order of spooners based on array
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 ORDER BY id");
-  
-  $i = 0;
+function getCamperIDs(){
+  $camper_ids = array();
+
+  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 0 ORDER BY id");
   while($spooner = mysql_fetch_array($result)) {
-    mysql_query("UPDATE spooners SET order_num = " . $random_array[$i] . " WHERE id = " . $spooner['id']);
-    $i++;
+    array_push($camper_ids, $spooner['id']);
+  }
+  return $camper_ids;
+}
+
+function getStaffIDs(){
+  $staff_ids = array();
+
+  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 1 ORDER BY id");
+  while($spooner = mysql_fetch_array($result)) {
+    array_push($staff_ids, $spooner['id']);
+  }
+  return $staff_ids;
+}
+
+function shuffleSpooners() {
+  $camper_ids = getCamperIDs();
+  $staff_ids = getStaffIDs();
+
+  shuffle($camper_ids);
+  shuffle($staff_ids);
+
+  //An array to put the ids for the new shuffled list
+  $random_ids = array();
+
+  //Determine the number of campers between each staff
+  $spacing = round(count($camper_ids)/count($staff_ids))+1;
+
+
+  while(count($random_ids) < getNumActiveSpooners()){
+    echo "oh no";
+    for($i = 0; $i < $spacing-1; $i++){
+      array_push($random_ids, array_pop($camper_ids));
+    }
+    array_push($random_ids, array_pop($staff_ids));
+
+    //This shouldn't happen but it is here just in case
+    if(count($staff_ids) == 0){
+      while(count($camper_ids) > 0){
+        array_push($random_ids, array_pop($camper_ids));
+      }
+    }
+    else{
+        //Recalculate the spacing each round to end up with a more even spacing over the entire list.
+        $spacing = round(count($camper_ids)/count($staff_ids))+1;
+    }
+  }
+
+
+  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 ORDER BY id");
+
+  for ($i=0; $spooner = mysql_fetch_array($result); $i++) { 
+    mysql_query("UPDATE spooners SET order_num = " . $i . " WHERE id = " . $random_ids[$i]);
   }
 }
 
@@ -54,8 +100,8 @@ function getIDByLooseName($subject) {
       return "multiple";       // more than one found
     }
   } else if(substr_count($subject, " ") == 1) {       // one space, let's assume first space last
-    $first = substr($subject, 0, strpos($subject, " "));
-    $last = substr($subject, strpos($subject, " ") + 1);
+  $first = substr($subject, 0, strpos($subject, " "));
+  $last = substr($subject, strpos($subject, " ") + 1);
     if(strlen($last) == 1) {   // last initial
       $result = mysql_query('SELECT id FROM spooners WHERE LOWER(first) = "' . $first . '" AND LOWER(SUBSTRING(last, 1, 1)) = "' . $last . '"');
       if(mysql_num_rows($result) > 0) {
