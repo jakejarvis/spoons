@@ -14,6 +14,16 @@ function getNumActiveSpooners() {
   return mysql_num_rows($result);
 }
 
+function getNumActiveCamperSpooners() {
+  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 0");
+  return mysql_num_rows($result);
+}
+
+function getNumActiveStaffSpooners() {
+  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 1");
+  return mysql_num_rows($result);
+}
+
 function getLowestOrderNum() {
   $result = mysql_query("SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num ASC LIMIT 1");
   $spooner = mysql_fetch_array($result);
@@ -90,7 +100,9 @@ function getIDByLooseName($subject) {
   $subject = trim($subject);
   $subject = strtolower($subject);
   $subject = str_replace(".", "", $subject);  // remove periods
-  if(substr_count($subject, " ") == 0) {    // subject only contains one name
+  
+  // subject only contains one word
+  if(substr_count($subject, " ") == 0) {    
     $result = mysql_query('SELECT id FROM spooners WHERE LOWER(first) = "' . $subject . '"');
     if(mysql_num_rows($result) == 1) {
       $spooner = mysql_fetch_array($result);
@@ -99,8 +111,8 @@ function getIDByLooseName($subject) {
       return "multiple";       // more than one found
     }
   } else if(substr_count($subject, " ") == 1) {       // one space, let's assume first space last
-  $first = substr($subject, 0, strpos($subject, " "));
-  $last = substr($subject, strpos($subject, " ") + 1);
+    $first = substr($subject, 0, strpos($subject, " "));
+    $last = substr($subject, strpos($subject, " ") + 1);
     if(strlen($last) == 1) {   // last initial
       $result = mysql_query('SELECT id FROM spooners WHERE LOWER(first) = "' . $first . '" AND LOWER(SUBSTRING(last, 1, 1)) = "' . $last . '"');
       if(mysql_num_rows($result) > 0) {
@@ -113,6 +125,13 @@ function getIDByLooseName($subject) {
         $spooner = mysql_fetch_array($result);
         return $spooner['id'];   // MATCH!
       }
+    }
+    
+    // still not found, take whole subject and compare to concatenated first + last in database
+    $result = mysql_query('SELECT id FROM spooners WHERE LOWER(CONCAT_WS(" ", first, last)) = "' . $subject . '"');
+    if(mysql_num_rows($result) > 0) {
+      $spooner = mysql_fetch_array($result);
+      return $spooner['id'];
     }
   }
   

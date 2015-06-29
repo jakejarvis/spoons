@@ -37,7 +37,7 @@ if($subject && $subject_id == "multiple") {
     $response = getNameByID($subject_id) . ' has not been spooned. ' . getFirstNameByID($subject_id) . '\'s target is ' . getNameByID(getTargetByID($subject_id)) . ' and is targeted by ' . getNameByID(getReverseTargetByID($subject_id)) . '.';
   }
 } else if(strcasecmp($command, "remaining") == 0) {
-  $response = "There are " . getNumActiveSpooners() . " of " . getNumTotalSpooners() . " spooners remaining.";
+  $response = "There are " . getNumActiveSpooners() . " of " . getNumTotalSpooners() . " spooners remaining. (" . getNumActiveCamperSpooners() . " campers, " . getNumActiveStaffSpooners() . " staff)";
 } else if(strcasecmp($command, "commands") == 0 || strcasecmp($command, "command") == 0) {
   $response = $help;
 } else {

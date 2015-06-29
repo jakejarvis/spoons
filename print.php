@@ -60,7 +60,7 @@ $html = '
   }
   div#container td {
     padding: 8px 25px;
-    border: 3px dotted black;
+    border: 3px solid black;
     text-align: left;
   }
 </style>

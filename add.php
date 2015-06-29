@@ -55,7 +55,7 @@ include('header.php');
       <tr>
         <th class="span1"> </th>
         <th class="span3"><strong>Last name</strong></th>
-        <th class="span3"><strong>First name</strong></th>
+        <th class="span3"><strong>First name (or nickname)</strong></th>
         <th class="span5"><strong>Staff?</strong>&nbsp;&nbsp;&nbsp;&nbsp;<small>(Last name optional if staff.)</small></th>
       </tr>
     </thead>
@@ -71,7 +71,7 @@ include('header.php');
           <input type="text" name="last-<?php echo $i ?>" placeholder="Last name">
         </td>
         <td>
-          <input type="text" name="first-<?php echo $i ?>" placeholder="First name">
+          <input type="text" name="first-<?php echo $i ?>" placeholder="First name (or nickname)">
         </td>
         <td>
           <input type="checkbox" name="staff-<?php echo $i ?>" value="1" tabindex="-1">
