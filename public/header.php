@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     
     <title><?php echo $page ?> &middot; Spoons</title>
-    
+
     <!--
      _   _                                                             _           
     | \ | |                                                           (_)          
@@ -118,6 +118,7 @@
     <link href="<?php echo $site_url ?>/assets/css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo $site_url ?>/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="<?php echo $site_url ?>/assets/css/main.css" rel="stylesheet">
+    <link href="<?php echo $site_url ?>/assets/css/fonts.css" rel="stylesheet">
     
     <!-- Le JQuery -->
     <script src="<?php echo $site_url ?>/assets/js/jquery.min.js"></script>
