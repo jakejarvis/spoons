@@ -21,6 +21,10 @@ if(isset($_POST['password'])) {
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    
+    <title>Sign in &middot; Spoons</title>
+
     <!--
      _   _                                                             _           
     | \ | |                                                           (_)          
@@ -127,10 +131,6 @@ if(isset($_POST['password'])) {
                                                 |___/     
     -->
     
-    <meta charset="utf-8">
-    
-    <title>Sign in &middot; Spoons</title>
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable mobile pinch zoom -->
 
     <!-- Le styles -->
@@ -182,10 +182,7 @@ if(isset($_POST['password'])) {
       }
     </style>
     <link href="<?php echo $site_url ?>/assets/css/bootstrap-responsive.css" rel="stylesheet">
-    
-    <!-- Pretty font -->
-    <script type="text/javascript" src="https://use.typekit.com/zhe6udw.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <link href="<?php echo $site_url ?>/assets/css/fonts.css" rel="stylesheet">
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -197,23 +194,18 @@ if(isset($_POST['password'])) {
   </head>
 
   <body>
-
     <div class="container">
-
       <form class="form-signin" action="<?php echo $site_url ?>/login" method="POST">
 <?php if($failure) { ?>
         <div class="alert alert-error">
           <strong>Nope!</strong> Try again buddy.
         </div>
 <?php } ?>
-        
         <img src="<?php echo $site_url ?>/assets/img/paulblart.png">
 
         <input type="password" name="password" class="input-block-level" placeholder="Password">
-        <!--<label class="checkbox">
-          <input type="checkbox" name="remember" value="remember"> Remember this device
-        </label>-->
-        <button class="btn btn-large btn-success submit" type="submit">Leggo!</button>
+
+        <button class="btn btn-large btn-success submit" type="submit">Open Sesame!</button>
       </form>
 
     </div> <!-- /container -->
@@ -227,6 +219,5 @@ if(isset($_POST['password'])) {
       ga('create', 'UA-1563964-34', 'scrabblerocks.com');
       ga('send', 'pageview');
     </script>
-
   </body>
 </html>
