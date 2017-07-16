@@ -1,8 +1,9 @@
 <?php
   /* site config */
-  $site_url = "https://idspoons.herokuapp.com";
-  $site_password = "asdf1234";
+  $site_url = getenv('SITE_URL');     // ex: https://idspoons.herokuapp.com   (no trailing slash)
+  $site_password = getenv('SITE_PASSWORD');
   
+  /* database config */
   if(isset(getenv('JAWSDB_URL'))) {
     $db_parts = parse_url(getenv('JAWSDB_URL'));
 
@@ -14,8 +15,8 @@
   } else {
     $db_host = "localhost";
     $db_port = 8889;
-    $db_user = "root";
-    $db_pass = "lol";
+    $db_user = "lol";
+    $db_pass = "yourpassword";
     $db_name = "spoons";
   }
   
