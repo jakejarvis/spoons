@@ -18,9 +18,11 @@
   font-weight: bold;
   font-style: normal;
 }
+* {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
 
 body {
-  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 20px 0px !important;
   font-size: 18px;
   line-height: 24px;
