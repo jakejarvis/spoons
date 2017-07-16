@@ -86,6 +86,8 @@ $html .= '</tbody>
 </table>
 </div>';
 
+mysqli_close($conn);
+
 include("mpdf/mpdf.php");
 
 $mpdf = new mPDF('c');
