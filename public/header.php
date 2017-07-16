@@ -163,7 +163,7 @@
     <link href="<?php echo $site_url ?>/assets/css/bootstrap-responsive.css" rel="stylesheet">
     
     <!-- Pretty font -->
-    <script type="text/javascript" src="http://use.typekit.com/zhe6udw.js"></script>
+    <script type="text/javascript" src="https://use.typekit.com/zhe6udw.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
     <!-- Le JQuery -->

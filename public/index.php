@@ -3,10 +3,10 @@ include('init.php');
 
 // needs to be at top so we can redirect to prevent double-shuffling or double-clearing
 if(isset($_GET['shuffle']) && isset($_GET['confirmed'])) {
-  shuffleSpooners();
+  shuffleSpooners($conn);
   header("Location:" . $site_url . "/shuffle/done");
 } else if(isset($_GET['clear']) && isset($_GET['confirmed'])) {
-  mysql_query("TRUNCATE spooners");
+  mysqli_query($conn, "TRUNCATE spooners");
   header("Location:" . $site_url . "/clear/done");
 }
 
@@ -103,21 +103,21 @@ h2, h4{
 
 /*********** SPOONING **********/
 if(isset($_GET['spoon'])) {
-  spoonByID($_GET['spoon']);
+  spoonByID($_GET['spoon'], $conn);
 ?>
 <div class="alert">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <h4><strong><?php echo getNameByID($_GET['spoon']) ?></strong> has been spooned! <?php echo getNameByID(getSpoonedByIDByID($_GET['spoon'])) ?></strong>'s new target is <?php echo getNameByID(getTargetByID(getSpoonedByIDByID($_GET['spoon']))) ?>.</h4>
+  <h4><strong><?php echo getNameByID($_GET['spoon'], $conn) ?></strong> has been spooned! <?php echo getNameByID(getSpoonedByIDByID($_GET['spoon'], $conn), $conn) ?></strong>'s new target is <?php echo getNameByID(getTargetByID(getSpoonedByIDByID($_GET['spoon'], $conn), $conn), $conn) ?>.</h4>
 </div>
 <?php
 }
 
 if(isset($_GET['revive'])) {
-  reviveByID($_GET['revive']);
+  reviveByID($_GET['revive'], $conn);
 ?>
 <div class="alert">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <h4><strong><?php echo getNameByID($_GET['revive']) ?></strong> has been revived, but note that he or she has been added to the end of the list.</h4>
+  <h4><strong><?php echo getNameByID($_GET['revive'], $conn) ?></strong> has been revived, but note that he or she has been added to the end of the list.</h4>
   <p>It's recommended to drag the revived spooner below a staff member so that you don't have to tell a camper that his or her target has changed for no reason.</p>
 </div>
 <?php 
@@ -198,12 +198,12 @@ $(document).ready(function() {
 </script>
 
 <?php
-$result = mysql_query("SELECT id, first, last, staff FROM spooners WHERE spooned = 0 ORDER BY order_num") or die(mysql_error());
+$result = mysqli_query($conn, "SELECT id, first, last, staff FROM spooners WHERE spooned = 0 ORDER BY order_num") or die(mysqli_error($conn));
 ?>
 
-<h4>Active Spooners (<?php echo mysql_num_rows($result) ?>)</h4>
+<h4>Active Spooners (<?php echo mysqli_num_rows($result) ?>)</h4>
 
-<?php if(mysql_num_rows($result) > 0) { ?>
+<?php if(mysqli_num_rows($result) > 0) { ?>
 <table class="table table-active">
   <thead>
     <tr class="row">
@@ -215,7 +215,7 @@ $result = mysql_query("SELECT id, first, last, staff FROM spooners WHERE spooned
   </thead>
   <tbody>
 <?php
-  while($spooner = mysql_fetch_array($result)) {
+  while($spooner = mysqli_fetch_array($result)) {
     echo '    <tr id="' . $spooner['id'] . '" class="row';
     if($spooner['staff']) echo ' success'; // highlight staff with green row
     echo '">
@@ -223,7 +223,7 @@ $result = mysql_query("SELECT id, first, last, staff FROM spooners WHERE spooned
         <td>' . $spooner['first'] . '</td>
         <td>' . $spooner['last'] . '</td>
         <td class="drag align-center"><i class="icon-list"></i></td>
-      <!--  <td><small>Targeting ' . getNameByID(getTargetByID($spooner['id'])) . ', targeted by ' . getNameByID(getReverseTargetByID($spooner['id'])) . '</small></td>  -->
+      <!--  <td><small>Targeting ' . getNameByID(getTargetByID($spooner['id'], $conn), $conn) . ', targeted by ' . getNameByID(getReverseTargetByID($spooner['id'], $conn), $conn) . '</small></td>  -->
       </tr>
   ';
   }
@@ -237,12 +237,12 @@ $result = mysql_query("SELECT id, first, last, staff FROM spooners WHERE spooned
 <hr>
 
 <?php
-$result = mysql_query("SELECT id, first, last, staff, spooned_by, time_spooned FROM spooners WHERE spooned = 1 ORDER BY time_spooned DESC") or die(mysql_error());
+$result = mysqli_query($conn, "SELECT id, first, last, staff, spooned_by, time_spooned FROM spooners WHERE spooned = 1 ORDER BY time_spooned DESC") or die(mysqli_error($conn));
 ?>
 
-<h4>Dead Spooners (<?php echo mysql_num_rows($result) ?>)</h4>
+<h4>Dead Spooners (<?php echo mysqli_num_rows($result) ?>)</h4>
 
-<?php if(mysql_num_rows($result) > 0) { ?>
+<?php if(mysqli_num_rows($result) > 0) { ?>
 <table class="table table-inactive">
   <thead>
     <tr class="row">
@@ -254,14 +254,14 @@ $result = mysql_query("SELECT id, first, last, staff, spooned_by, time_spooned F
   </thead>
   <tbody>
 <?php
-  while($spooner = mysql_fetch_array($result)) {
+  while($spooner = mysqli_fetch_array($result)) {
     echo '        <tr id="' . $spooner['id'] . '" class="row';
     if($spooner['staff']) echo ' success'; // highlight staff with green row
     echo '">
         <td class="align-center" style="min-width:40px;"><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn hidden-phone" type="submit"><i class="icon-arrow-up"></i> Revive</a><a href="' . $site_url . '/revive/' . $spooner['id'] . '" class="btn visible-phone" style="padding-left:10px !important; width:40px !important;">  <i class="icon-arrow-up"></i></a></td>
         <td>' . $spooner['first'] . ' ' . $spooner['last'] . '</td>
-        <td class="hidden-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
-        <td class="visible-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by']) . '</strong></br> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
+        <td class="hidden-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by'], $conn) . '</strong> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
+        <td class="visible-phone"><small>Spooned by <strong>' . getNameByID($spooner['spooned_by'], $conn) . '</strong></br> on <strong>' . date('l', strtotime($spooner['time_spooned'])) . '</strong> at <strong>' . date('g:i A', strtotime($spooner['time_spooned'])) . '</strong>.</small></td>
 
       </tr>
   ';

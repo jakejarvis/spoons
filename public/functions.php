@@ -1,64 +1,64 @@
 <?php
 
-function logSMS($message, $response, $number) {
-  mysql_query('INSERT INTO texts (message, response, phone_number) VALUES ("' . mysql_real_escape_string($message) . '", "' . mysql_real_escape_string($response) . '", "' . mysql_real_escape_string($number) . '")');
+function logSMS($message, $response, $number, $conn) {
+  mysqli_query($conn, 'INSERT INTO texts (message, response, phone_number) VALUES ("' . mysqli_real_escape_string($conn, $message) . '", "' . mysqli_real_escape_string($conn, $response) . '", "' . mysqli_real_escape_string($conn, $number) . '")');
 }
 
-function getNumTotalSpooners() {
-  $result = mysql_query("SELECT id FROM spooners");
-  return mysql_num_rows($result);
+function getNumTotalSpooners($conn) {
+  $result = mysqli_query($conn, "SELECT id FROM spooners");
+  return mysqli_num_rows($result);
 }
 
-function getNumActiveSpooners() {
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0");
-  return mysql_num_rows($result);
+function getNumActiveSpooners($conn) {
+  $result = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0");
+  return mysqli_num_rows($result);
 }
 
-function getNumActiveCamperSpooners() {
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 0");
-  return mysql_num_rows($result);
+function getNumActiveCamperSpooners($conn) {
+  $result = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND staff = 0");
+  return mysqli_num_rows($result);
 }
 
-function getNumActiveStaffSpooners() {
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 1");
-  return mysql_num_rows($result);
+function getNumActiveStaffSpooners($conn) {
+  $result = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND staff = 1");
+  return mysqli_num_rows($result);
 }
 
-function getLowestOrderNum() {
-  $result = mysql_query("SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num ASC LIMIT 1");
-  $spooner = mysql_fetch_array($result);
+function getLowestOrderNum($conn) {
+  $result = mysqli_query($conn, "SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num ASC LIMIT 1");
+  $spooner = mysqli_fetch_array($result);
   return $spooner['order_num'];
 }
 
-function getHighestOrderNum() {
-  $result = mysql_query("SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num DESC LIMIT 1");
-  $spooner = mysql_fetch_array($result);
+function getHighestOrderNum($conn) {
+  $result = mysqli_query($conn, "SELECT order_num FROM spooners WHERE spooned = 0 ORDER BY order_num DESC LIMIT 1");
+  $spooner = mysqli_fetch_array($result);
   return $spooner['order_num'];
 }
 
-function getCamperIDs(){
+function getCamperIDs($conn){
   $camper_ids = array();
 
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 0 ORDER BY id");
-  while($spooner = mysql_fetch_array($result)) {
+  $result = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND staff = 0 ORDER BY id");
+  while($spooner = mysqli_fetch_array($result)) {
     array_push($camper_ids, $spooner['id']);
   }
   return $camper_ids;
 }
 
-function getStaffIDs(){
+function getStaffIDs($conn){
   $staff_ids = array();
 
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND staff = 1 ORDER BY id");
-  while($spooner = mysql_fetch_array($result)) {
+  $result = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND staff = 1 ORDER BY id");
+  while($spooner = mysqli_fetch_array($result)) {
     array_push($staff_ids, $spooner['id']);
   }
   return $staff_ids;
 }
 
-function shuffleSpooners() {
-  $camper_ids = getCamperIDs();
-  $staff_ids = getStaffIDs();
+function shuffleSpooners($conn) {
+  $camper_ids = getCamperIDs($conn);
+  $staff_ids = getStaffIDs($conn);
 
   shuffle($camper_ids);
   shuffle($staff_ids);
@@ -70,7 +70,7 @@ function shuffleSpooners() {
   $spacing = round(count($camper_ids)/count($staff_ids))+1;
 
 
-  while(count($random_ids) < getNumActiveSpooners()){
+  while(count($random_ids) < getNumActiveSpooners($conn)){
     for($i = 0; $i < $spacing-1; $i++){
       array_push($random_ids, array_pop($camper_ids));
     }
@@ -89,48 +89,48 @@ function shuffleSpooners() {
   }
 
 
-  $result = mysql_query("SELECT id FROM spooners WHERE spooned = 0 ORDER BY id");
+  $result = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 ORDER BY id");
 
-  for ($i=0; $spooner = mysql_fetch_array($result); $i++) { 
-    mysql_query("UPDATE spooners SET order_num = " . $i . " WHERE id = " . $random_ids[$i]);
+  for ($i=0; $spooner = mysqli_fetch_array($result); $i++) { 
+    mysqli_query($conn, "UPDATE spooners SET order_num = " . $i . " WHERE id = " . $random_ids[$i]);
   }
 }
 
-function getIDByLooseName($subject) {
+function getIDByLooseName($subject, $conn) {
   $subject = trim($subject);
   $subject = strtolower($subject);
   $subject = str_replace(".", "", $subject);  // remove periods
   
   // subject only contains one word
   if(substr_count($subject, " ") == 0) {    
-    $result = mysql_query('SELECT id FROM spooners WHERE LOWER(first) = "' . $subject . '"');
-    if(mysql_num_rows($result) == 1) {
-      $spooner = mysql_fetch_array($result);
+    $result = mysqli_query($conn, 'SELECT id FROM spooners WHERE LOWER(first) = "' . $subject . '"');
+    if(mysqli_num_rows($result) == 1) {
+      $spooner = mysqli_fetch_array($result);
       return $spooner['id'];   // MATCH!
-    } else if(mysql_num_rows($result) > 1) {
+    } else if(mysqli_num_rows($result) > 1) {
       return "multiple";       // more than one found
     }
   } else if(substr_count($subject, " ") == 1) {       // one space, let's assume first space last
     $first = substr($subject, 0, strpos($subject, " "));
     $last = substr($subject, strpos($subject, " ") + 1);
     if(strlen($last) == 1) {   // last initial
-      $result = mysql_query('SELECT id FROM spooners WHERE LOWER(first) = "' . $first . '" AND LOWER(SUBSTRING(last, 1, 1)) = "' . $last . '"');
-      if(mysql_num_rows($result) > 0) {
-        $spooner = mysql_fetch_array($result);
+      $result = mysqli_query($conn, 'SELECT id FROM spooners WHERE LOWER(first) = "' . $first . '" AND LOWER(SUBSTRING(last, 1, 1)) = "' . $last . '"');
+      if(mysqli_num_rows($result) > 0) {
+        $spooner = mysqli_fetch_array($result);
         return $spooner['id'];   // MATCH!
       }
     } else {    // full last name
-      $result = mysql_query('SELECT id FROM spooners WHERE LOWER(first) = "' . $first . '" AND LOWER(last) = "' . $last . '"');
-      if(mysql_num_rows($result) > 0) {
-        $spooner = mysql_fetch_array($result);
+      $result = mysqli_query($conn, 'SELECT id FROM spooners WHERE LOWER(first) = "' . $first . '" AND LOWER(last) = "' . $last . '"');
+      if(mysqli_num_rows($result) > 0) {
+        $spooner = mysqli_fetch_array($result);
         return $spooner['id'];   // MATCH!
       }
     }
     
     // still not found, take whole subject and compare to concatenated first + last in database
-    $result = mysql_query('SELECT id FROM spooners WHERE LOWER(CONCAT_WS(" ", first, last)) = "' . $subject . '"');
-    if(mysql_num_rows($result) > 0) {
-      $spooner = mysql_fetch_array($result);
+    $result = mysqli_query($conn, 'SELECT id FROM spooners WHERE LOWER(CONCAT_WS(" ", first, last)) = "' . $subject . '"');
+    if(mysqli_num_rows($result) > 0) {
+      $spooner = mysqli_fetch_array($result);
       return $spooner['id'];
     }
   }
@@ -138,11 +138,11 @@ function getIDByLooseName($subject) {
   return "none";
 }
 
-function getNameByID($id) {
+function getNameByID($id, $conn) {
   if($id) {
-    $result = mysql_query("SELECT first, last FROM spooners WHERE id = " . $id) or die(mysql_error());
-    if(mysql_num_rows($result) == 1) {
-      $spooner = mysql_fetch_array($result);
+    $result = mysqli_query($conn, "SELECT first, last FROM spooners WHERE id = " . $id) or die(mysqli_error());
+    if(mysqli_num_rows($result) == 1) {
+      $spooner = mysqli_fetch_array($result);
       $name = $spooner['first'];
       if($spooner['last']) $name .= ' ' . $spooner['last'];
       return $name;
@@ -152,64 +152,64 @@ function getNameByID($id) {
   }
 }
 
-function getFirstNameByID($id) {
-  $result = mysql_query("SELECT first FROM spooners WHERE id = " . $id);
-  $spooner = mysql_fetch_array($result);
+function getFirstNameByID($id, $conn) {
+  $result = mysqli_query($conn, "SELECT first FROM spooners WHERE id = " . $id);
+  $spooner = mysqli_fetch_array($result);
   return $spooner['first'];
 }
 
-function getTargetByID($id) {
-  $result = mysql_query("SELECT order_num FROM spooners WHERE id = " . $id);
-  $spooner = mysql_fetch_array($result);
-  if($spooner['order_num'] == getHighestOrderNum()) {    // if last person in the list
-    $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num = " . getLowestOrderNum());
-    $spooner2 = mysql_fetch_array($result2);
+function getTargetByID($id, $conn) {
+  $result = mysqli_query($conn, "SELECT order_num FROM spooners WHERE id = " . $id);
+  $spooner = mysqli_fetch_array($result);
+  if($spooner['order_num'] == getHighestOrderNum($conn)) {    // if last person in the list
+    $result2 = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND order_num = " . getLowestOrderNum($conn));
+    $spooner2 = mysqli_fetch_array($result2);
     return $spooner2['id'];
   } else {
-    $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num > " . $spooner['order_num'] . " ORDER BY order_num ASC LIMIT 1");
-    $spooner2 = mysql_fetch_array($result2);
+    $result2 = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND order_num > " . $spooner['order_num'] . " ORDER BY order_num ASC LIMIT 1");
+    $spooner2 = mysqli_fetch_array($result2);
     return $spooner2['id'];
   }
 }
 
-function getReverseTargetByID($id) {    // aka get the person above the passed in person
-  $result = mysql_query("SELECT order_num FROM spooners WHERE id = " . $id);
-  $spooner = mysql_fetch_array($result);
-  if($spooner['order_num'] == getLowestOrderNum()) {    // if first person in the list
-    $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num = " . getHighestOrderNum());
-    $spooner2 = mysql_fetch_array($result2);
+function getReverseTargetByID($id, $conn) {    // aka get the person above the passed in person
+  $result = mysqli_query($conn, "SELECT order_num FROM spooners WHERE id = " . $id);
+  $spooner = mysqli_fetch_array($result);
+  if($spooner['order_num'] == getLowestOrderNum($conn)) {    // if first person in the list
+    $result2 = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND order_num = " . getHighestOrderNum($conn));
+    $spooner2 = mysqli_fetch_array($result2);
     return $spooner2['id'];
   } else {
-    $result2 = mysql_query("SELECT id FROM spooners WHERE spooned = 0 AND order_num < " . $spooner['order_num'] . " ORDER BY order_num DESC LIMIT 1");
-    $spooner2 = mysql_fetch_array($result2);
+    $result2 = mysqli_query($conn, "SELECT id FROM spooners WHERE spooned = 0 AND order_num < " . $spooner['order_num'] . " ORDER BY order_num DESC LIMIT 1");
+    $spooner2 = mysqli_fetch_array($result2);
     return $spooner2['id'];
   }
 }
 
-function checkSpoonedByID($id) {
-  $result = mysql_query("SELECT spooned FROM spooners WHERE id = " . $id);
-  $spooner = mysql_fetch_array($result);
+function checkSpoonedByID($id, $conn) {
+  $result = mysqli_query($conn, "SELECT spooned FROM spooners WHERE id = " . $id);
+  $spooner = mysqli_fetch_array($result);
   return $spooner['spooned'];
 }
 
-function spoonByID($id) {
-  mysql_query('SET time_zone = "' . $timezone_number . '"');
-  mysql_query("UPDATE spooners SET spooned_by = " . getReverseTargetByID($id) . ", time_spooned = NOW(), spooned = 1, order_num = -1 WHERE id = " . $id);
+function spoonByID($id, $conn) {
+  mysqli_query($conn, 'SET time_zone = "' . $timezone_number . '"');
+  mysqli_query($conn, "UPDATE spooners SET spooned_by = " . getReverseTargetByID($id, $conn) . ", time_spooned = NOW(), spooned = 1, order_num = -1 WHERE id = " . $id);
 }
 
-function reviveByID($id) {
-  mysql_query("UPDATE spooners SET spooned = 0, order_num = " . (getHighestOrderNum() + 1) . " WHERE id = " . $id);
+function reviveByID($id, $conn) {
+  mysqli_query($conn, "UPDATE spooners SET spooned = 0, order_num = " . (getHighestOrderNum($conn) + 1) . " WHERE id = " . $id);
 }
 
-function getSpoonedByIDByID($id) {
-  $result = mysql_query("SELECT spooned_by FROM spooners WHERE id = " . $id);
-  $spooner = mysql_fetch_array($result);
+function getSpoonedByIDByID($id, $conn) {
+  $result = mysqli_query($conn, "SELECT spooned_by FROM spooners WHERE id = " . $id);
+  $spooner = mysqli_fetch_array($result);
   return $spooner['spooned_by'];
 }
 
-function getTimeSpoonedByID($id) {
-  $result = mysql_query("SELECT time_spooned FROM spooners WHERE id = " . $id);
-  $spooner = mysql_fetch_array($result);
+function getTimeSpoonedByID($id, $conn) {
+  $result = mysqli_query($conn, "SELECT time_spooned FROM spooners WHERE id = " . $id);
+  $spooner = mysqli_fetch_array($result);
   return $spooner['time_spooned'];
 }
 

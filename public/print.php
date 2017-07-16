@@ -9,10 +9,10 @@ if(!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == FALSE) {
 
 include('db_connect.php');
 
-$result = mysql_query("SELECT first, last FROM spooners WHERE spooned = 0 ORDER BY order_num") or die(mysql_error());
+$result = mysqli_query($conn, "SELECT first, last FROM spooners WHERE spooned = 0 ORDER BY order_num") or die(mysqli_error($conn));
 
 $i = 0;
-while($spooner = mysql_fetch_array($result)) {
+while($spooner = mysqli_fetch_array($result)) {
   $spooners[$i]['name'] = $spooner['first'];
   if($spooner['last']) $spooners[$i]['name'] .= " " . $spooner['last'];
   
