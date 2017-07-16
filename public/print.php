@@ -1,4 +1,5 @@
 <?php
+require('../vendor/autoload.php');
 include('config.php');
 
 session_start();
@@ -91,7 +92,7 @@ mysqli_close($conn);
 
 
 
-$mpdf = new \Mpdf\Mpdf();
+$mpdf = new mPDF('c');
 
 $mpdf->SetDisplayMode('fullpage');
 
