@@ -1,5 +1,5 @@
 <?php
-require('vendor/autoload.php');
+require('../vendor/autoload.php');
 
 include_once('config.php');        // these have probably all been included already, but just in case...
 include_once('functions.php');
