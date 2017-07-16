@@ -6,19 +6,11 @@ session_start();
 if($_SESSION['logged_in']) {
   header("Location:" . $site_url . "/");
   die();
-} else if($_COOKIE['remembered'] == 'TRUE') {
-  $_SESSION['logged_in'] = TRUE;
-  header("Location:" . $site_url . "/");
-  die();
 }
 
 if(isset($_POST['password'])) {
   if($_POST['password'] == $site_password) {
     $_SESSION['logged_in'] = TRUE;
-    if($_POST['remember'] == "remember") {
-      $threeMonths = 60 * 60 * 24 * 90 + time(); 
-      setcookie('remembered', 'TRUE', $threeMonths);
-    }
     header("Location:" . $site_url . "/");
     die();
   } else {
@@ -218,9 +210,9 @@ if(isset($_POST['password'])) {
         <img src="<?php echo $site_url ?>/assets/img/paulblart.png">
 
         <input type="password" name="password" class="input-block-level" placeholder="Password">
-        <label class="checkbox">
+        <!--<label class="checkbox">
           <input type="checkbox" name="remember" value="remember"> Remember this device
-        </label>
+        </label>-->
         <button class="btn btn-large btn-success submit" type="submit">Leggo!</button>
       </form>
 
