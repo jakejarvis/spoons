@@ -88,9 +88,11 @@ $html .= '</tbody>
 
 mysqli_close($conn);
 
-include("mpdf/mpdf.php");
 
-$mpdf = new mPDF('c');
+
+
+//$mpdf = new mPDF('c');
+$mpdf = new \Mpdf\Mpdf('c');
 
 $mpdf->SetDisplayMode('fullpage');
 
