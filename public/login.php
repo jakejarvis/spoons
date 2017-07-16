@@ -192,7 +192,7 @@ if(isset($_POST['password'])) {
     <link href="<?php echo $site_url ?>/assets/css/bootstrap-responsive.css" rel="stylesheet">
     
     <!-- Pretty font -->
-    <script type="text/javascript" src="http://use.typekit.com/zhe6udw.js"></script>
+    <script type="text/javascript" src="https://use.typekit.com/zhe6udw.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -225,20 +225,6 @@ if(isset($_POST['password'])) {
       </form>
 
     </div> <!-- /container -->
-
-    <script type="text/javascript">
-      var _gauges = _gauges || [];
-      (function() {
-        var t   = document.createElement('script');
-        t.type  = 'text/javascript';
-        t.async = true;
-        t.id    = 'gauges-tracker';
-        t.setAttribute('data-site-id', '517087f5613f5d77c300005e');
-        t.src = '//secure.gaug.es/track.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(t, s);
-      })();
-    </script>
     
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
