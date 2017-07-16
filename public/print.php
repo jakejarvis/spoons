@@ -91,8 +91,7 @@ mysqli_close($conn);
 
 
 
-//$mpdf = new mPDF('c');
-$mpdf = new \Mpdf\Mpdf('c');
+$mpdf = new mPDF('c');
 
 $mpdf->SetDisplayMode('fullpage');
 
