@@ -4,7 +4,7 @@
   $site_password = getenv('SITE_PASSWORD');
   
   /* database config */
-  if(isset(getenv('JAWSDB_URL'))) {
+  if(getenv('JAWSDB_URL') !== null) {
     $db_parts = parse_url(getenv('JAWSDB_URL'));
 
     $db_host = $db_parts['host'];
