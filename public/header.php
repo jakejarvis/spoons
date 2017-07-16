@@ -2,6 +2,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    
+    <title><?php echo $page ?> &middot; Spoons</title>
+    
     <!--
      _   _                                                             _           
     | \ | |                                                           (_)          
@@ -108,63 +112,12 @@
                                                 |___/     
     -->
     
-    <meta charset="utf-8">
-    
-    <title><?php echo $page ?> &middot; Spoons</title>
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Disable mobile pinch zoom -->
 
     <!-- Le styles -->
     <link href="<?php echo $site_url ?>/assets/css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding: 20px 0px !important;
-        font-size: 18px;
-        line-height: 24px;
-        overflow-x: hidden;
-        /* disable text highlight */
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        cursor:default;
-      }
-      a, a:hover, strong {
-        color: #79ad36;
-        font-weight: bold;
-      }
-      small {
-        font-size: 14px;
-      }
-      .nav-pills {
-        font-size:16px;
-      }
-      .nav-pills .active a, .nav-pills .active a:hover {
-        background-color: #79ad36;
-      }
-      .align-left {
-          text-align: left;
-      }
-      .align-center {
-          text-align: center;
-      }
-      .align-right {
-          text-align: right;
-      }
-      .footer {
-        font-size: 13px;
-        line-height: 40px;
-      }
-      td {
-        background-color: #fff;
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-        margin-bottom: -1px;
-      }
-    </style>
     <link href="<?php echo $site_url ?>/assets/css/bootstrap-responsive.css" rel="stylesheet">
-    
-    <!-- Pretty font -->
-    <script type="text/javascript" src="https://use.typekit.com/zhe6udw.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <link href="<?php echo $site_url ?>/assets/css/main.css" rel="stylesheet">
     
     <!-- Le JQuery -->
     <script src="<?php echo $site_url ?>/assets/js/jquery.min.js"></script>
