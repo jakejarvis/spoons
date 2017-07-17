@@ -7,5 +7,5 @@
     die("Connection failed: " . mysqli_connect_error());
   }
 
-  mysqli_query($conn, 'SET time_zone = "' . $timezone_number . '"');
+  mysqli_query($conn, 'SET time_zone = "' . $timezone_name . '"');
 ?>

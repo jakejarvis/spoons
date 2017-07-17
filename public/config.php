@@ -20,8 +20,7 @@
     $db_name = "spoons";
   }
   
-  $timezone_number = "-4:00";
-  $timezone_name = "America/New_York";
+  $timezone_name = getenv('TZ');
   
   date_default_timezone_set($timezone_name);
 ?>
