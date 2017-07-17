@@ -5,13 +5,13 @@
       <div class="footer">
         <div class="row hidden-phone">
             <div class="span4 align-left visible-desktop">
-              <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabble.io/" target="_blank">scribscrab</a>.&nbsp;&nbsp;&nbsp;<a href="https://github.com/jakejarvis/spoons/issues" target="_blank">Report an issue</a>.</p>
+              <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="https://jakejarvis.com" target="_blank">Scrabble</a>.&nbsp;&nbsp;&nbsp;<a href="https://github.com/jakejarvis/spoons/issues" target="_blank">Report an issue.</a></p>
             </div>
             <div class="span4 align-left visible-tablet">
-              <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabble.io/" target="_blank">scribscrab</a>.</p>
+              <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="https://jakejarvis.com" target="_blank">Scrabble</a>.</p>
             </div>
             <div class="span4 align-center">
-              <a href="http://scrabble.io/" target="_blank"><img src="<?php echo $site_url ?>/assets/img/scrabble-40.jpg" alt="scrabble"></a>
+              <a href="https://jakejarvis.com" target="_blank"><img src="<?php echo $site_url ?>/assets/img/scrabble-40.jpg" alt="scrabble"></a>
             </div>
             <div class="span4 align-right">
               <p><a href="#">Back to top!</a></p>
@@ -20,10 +20,10 @@
         
         <div class="row visible-phone">
             <div class="span12 align-center">
-              <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="http://scrabble.io/" target="_blank">scribscrab</a>.</p>
+              <p>Baked with <span style="color:#79ad36">&hearts;</span> by <a href="https://jakejarvis.com" target="_blank">Scrabble</a>.</p>
             </div>
             <div class="span12 align-center">
-              <p><a href="http://scrabble.io/" target="_blank"><img src="<?php echo $site_url ?>/assets/img/scrabble-40.jpg" alt="scrabble"></a></p>
+              <p><a href="https://jakejarvis.com" target="_blank"><img src="<?php echo $site_url ?>/assets/img/scrabble-40.jpg" alt="scrabble"></a></p>
             </div>
         </div>
       </div>
