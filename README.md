@@ -1,6 +1,8 @@
 # Spoons Web Manager
 Online manager for offline spooning, created for and by [**iD Tech Camps**](https://www.idtech.com/) at **Princeton University**.
 
+![screenshot](screenshot.png)
+
 ## Notes
 
 This was quickly hacked together in a short amount of time by multiple tired staffers with very little time on our hands, so I can guarantee there are serious goofs and gaffes, possibly with some security implications. Use at your own risk and feel free to [report back](https://github.com/jakejarvis/spoons/issues)!
