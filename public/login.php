@@ -201,7 +201,7 @@ if(isset($_POST['password'])) {
           <strong>Nope!</strong> Try again buddy.
         </div>
 <?php } ?>
-        <img src="<?php echo $site_url ?>/assets/img/paulblart.png">
+        <img src="<?php echo $site_url ?>/assets/img/paulwithspoon.png">
 
         <input type="password" name="password" class="input-block-level" placeholder="Password">
 
