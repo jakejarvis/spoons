@@ -20,6 +20,9 @@
     $db_name = "spoons";
   }
   
+  $phonenum = getenv('PHONENUM');
+  $phonenum_friendly = getenv('PHONENUM_FRIENDLY');
+
   $timezone_name = getenv('TZ');
   
   date_default_timezone_set($timezone_name);

@@ -18,7 +18,13 @@ Easily deployable (for free!) to [Heroku](https://www.heroku.com/) as of Summer 
 - `SITE_PASSWORD`: the password that allows staff members past the login page
 - `TZ`: time zone in [TZ format](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones); ex: America/New_York
 
-Optional (but really [**awesome**](http://synonymsforawesome.com)) SMS reporting capabilities can be added for very little cost — just a few bucks should get you through the whole summer. [Sign up for a Twilio account](https://www.twilio.com/), add some credit, claim a catchy phone number, and point its text webhook callback to `http://{your domain}/sms_hook.php` via HTTP POST. Don't forget to change the phone number that's displayed in the `sms.php` how-to page.
+Optional (but really [**awesome**](http://synonymsforawesome.com)) SMS reporting capabilities can be added for very little cost — just a few bucks should get you through the whole summer. [Sign up for a Twilio account](https://www.twilio.com/), add some credit, claim a catchy phone number, and point its text webhook callback to `http://{your domain}/sms_hook.php` via HTTP POST. Set the following additional [environment variables](https://devcenter.heroku.com/articles/config-vars#setting-up-config-vars-for-a-deployed-application) so the header knows to show a link to the SMS how-to page (`sms.php`) and what number to show on that page:
+
+- `PHONENUM`: numeric phone number claimed through Twilio; ex: +1 (917) 477-6667
+- `PHONENUM_FRIENDLY` (optional): phone number in text-based format if you [searched for one containing SPOONS on Twilio](https://support.twilio.com/hc/en-us/articles/223135247-How-to-search-for-phone-numbers); ex: +1 (917) 4-SPOONS
+
+
+Don't forget to change the phone number that's displayed in the `sms.php` how-to page.
 
 ---
 

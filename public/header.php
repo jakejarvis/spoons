@@ -140,7 +140,7 @@
 
       <div class="masthead hidden-phone">
         <ul class="nav nav-pills pull-right">
-          <?php if($page == "Home") { ?><li><a href="<?php echo $site_url ?>/sms">How do I report via SMS?</a></li><?php } ?>
+          <?php if($page == "Home" && $phonenum != null) { ?><li><a href="<?php echo $site_url ?>/sms">How do I report via SMS?</a></li><?php } ?>
           <?php if($page != "Home") { ?><li><a href="<?php echo $site_url ?>/">&laquo; Back Home</a></li><?php } ?>
           <li style="margin-left:10px;"><a href="<?php echo $site_url ?>/logout">Logout</a></li>
         </ul>
@@ -149,7 +149,7 @@
       
       <div class="masthead visible-phone">
         <ul class="nav nav-pills pull-right">
-          <?php if($page == "Home") { ?><li><a href="<?php echo $site_url ?>/sms">SMS</a></li><?php } ?>
+          <?php if($page == "Home" && $phonenum != null) { ?><li><a href="<?php echo $site_url ?>/sms">SMS</a></li><?php } ?>
           <?php if($page != "Home") { ?><li><a href="<?php echo $site_url ?>/">Home</a></li><?php } ?>
           <li><a href="<?php echo $site_url ?>/logout">Logout</a></li>
         </ul>
