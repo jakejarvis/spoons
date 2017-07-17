@@ -7,7 +7,7 @@ Online manager for offline spooning, created for and by [**iD Tech Camps**](http
 
 This was quickly hacked together in a short amount of time by multiple tired staffers with very little time on our hands, so I can guarantee there are serious goofs and gaffes, possibly with some security implications. Use at your own risk and feel free to [report back](https://github.com/jakejarvis/spoons/issues)!
 
-#### [Click here to view Snake's Spooning Statutes™, the official Spoons rulebook.](https://docs.google.com/document/d/1Gc0H1ITcNZ0Fg3WQI4Q4HtMpMUBrT_2PReOWc62RIQU/edit?usp=sharing)
+[**Click here to view Snake's Spooning Statutes™, the official Spoons rulebook.**](https://docs.google.com/document/d/1Gc0H1ITcNZ0Fg3WQI4Q4HtMpMUBrT_2PReOWc62RIQU/edit?usp=sharing)
 
 
 ## Deploying to Heroku
@@ -22,9 +22,6 @@ Optional (but really [**awesome**](http://synonymsforawesome.com)) SMS reporting
 
 - `PHONENUM`: numeric phone number claimed through Twilio; ex: +1 (917) 477-6667
 - `PHONENUM_FRIENDLY` (optional): phone number in text-based format if you [searched for one containing SPOONS on Twilio](https://support.twilio.com/hc/en-us/articles/223135247-How-to-search-for-phone-numbers); ex: +1 (917) 4-SPOONS
-
-
-Don't forget to change the phone number that's displayed in the `sms.php` how-to page.
 
 ---
 
