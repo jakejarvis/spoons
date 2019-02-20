@@ -1,7 +1,8 @@
 # Spoons Web Manager
 Online manager for offline spooning, created for and by [**iD Tech Camps**](https://www.idtech.com/) at **Princeton University**.
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.png)[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjakejarvis%2Fspoons.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjakejarvis%2Fspoons?ref=badge_shield)
+
 
 ## Notes
 
@@ -28,3 +29,6 @@ Optional (but really [**awesome**](http://synonymsforawesome.com)) SMS reporting
 with love,
 
 [**Scrabble** ♥](https://jakejarvis.com)
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjakejarvis%2Fspoons.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjakejarvis%2Fspoons?ref=badge_large)
